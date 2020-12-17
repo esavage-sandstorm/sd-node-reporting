@@ -14,13 +14,15 @@ function sandStormLogo() {
  */
 function tableOpen(headers, classes = null, id = null) {
   var table = `<table id="${id}" class="${classes}">`;
-  table += '<thead>';
-  table += '<tr>';
-  headers.forEach(header => {
-    table += `<th>${header}</th>`;
-  });
-  table += '</tr>';
-  table += '</thead>';
+  if (headers.length > 0){
+    table += '<thead>';
+    table += '<tr>';
+    headers.forEach(header => {
+      table += `<th>${header}</th>`;
+    });
+    table += '</tr>';
+    table += '</thead>';
+  }
   table += '<tbody>';
   return table;
 }
