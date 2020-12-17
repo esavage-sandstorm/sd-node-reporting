@@ -1,5 +1,13 @@
 'use strict';
 
+function sandStormLogo() {
+  const url = 'https://www.sandstormdesign.com/sites/all/themes/sandstorm/images/sandstorm-logo.png';
+  const width = '182.50px';
+  const height = '26.61px';
+  const marginBottom = '40px';
+  const logo = `<img alt="Sandstorm Design Logo" src="${url}" style="width: ${width}; height: ${height}; margin-bottom: ${marginBottom}; float: right;" title="Sandstorm Design">`;
+  return logo;
+}
 /**
  * Returns the HTML to begin a table with a header row, through the open <tbody>
  * @param {array} Headers - An array of header table cell values
@@ -107,6 +115,7 @@ function li(text, style=''){
   return `<li>${text}</li>`;
 }
 
+exports.sandStormLogo = sandStormLogo;
 exports.tableOpen = tableOpen;
 exports.tableClose = tableClose;
 exports.tableRow = tableRow;
