@@ -37,7 +37,7 @@ function tableClose(){
 
 /**
  * Return an HTML table row for an array of cells
- * @param {aray} cells - An array of cell values.
+ * @param {array} cells - An array of cell values.
  */
 function tableRow(cells){
   var row = '<tr>';
@@ -55,8 +55,36 @@ function tableRow(cells){
  * @param {integer} size - Font size in pixels, for inline styling.
  * @param {string} style - additional inline styles.
  */
-function heading(text, l, size, style = ''){
-  return `<h${l}>${text}</h${l}>`;
+
+function escapeHTML(html){
+  return html.replace(/\</g,'&lt;').replace(/\>/g,'&gt;');
+}
+
+function htmlElement(el, content, style = '', className = '', id = '') {
+  if (!content){
+    return '';
+  }
+  let open = `<${el}`;
+  if (style){
+    open += ` style="${style}"`;
+  }
+  if (className){
+    open += ` class="${className}"`;
+  }
+  if (id){
+    open += ` id="${id}"`;
+  }
+  open += '>';
+  let close = `</${el}>`;
+  return `${open}${content}${close}`;
+}
+
+function heading(text, l, size = '', style = ''){
+  if (size){
+    style += `font-size: ${size}pt;`;
+  }
+  var el = `h${l}`;
+  return htmlElement(el, text, style);
 }
 
 /**
@@ -100,12 +128,22 @@ function h5(text){
 }
 
 /**
+ * Generate HTML for a span element
+ * @param {string} text - Text content.
+ * * @param {string} className - Class name applied to the <span>
+ * @param {string} style - additional inline styles.
+ */
+function span(text, className, style=''){
+  return htmlElement(`span`, text, style, className);
+}
+
+/**
  * Generate HTML for a paragraph
  * @param {string} text - Text content.
  * @param {string} style - additional inline styles.
  */
 function p(text, style=''){
-  return `<p>${text}</p>`;
+  return htmlElement(`p`, text, style);
 }
 
 /**
@@ -114,9 +152,10 @@ function p(text, style=''){
  * @param {string} style - additional inline styles.
  */
 function li(text, style=''){
-  return `<li>${text}</li>`;
+  return htmlElement(`li`, text, style);
 }
 
+exports.escapeHTML = escapeHTML;
 exports.sandStormLogo = sandStormLogo;
 exports.tableOpen = tableOpen;
 exports.tableClose = tableClose;
@@ -126,5 +165,6 @@ exports.h2 = h2;
 exports.h3 = h3;
 exports.h4 = h4;
 exports.h5 = h5;
+exports.span = span;
 exports.p = p;
 exports.li = li;
